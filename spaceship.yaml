@@ -1,0 +1,9 @@
+apiVersion: thomasvn.dev/v1
+kind: Spaceship
+metadata:
+  name: nasa2022
+spec:
+  name: Artemis
+  model: Orion
+  launchdate: Aug 29 2022
+  duration: 42
