@@ -1,6 +1,8 @@
-# Operator
+# 🚀 Spaceship Operator
 
-Playing with CRDs & Controllers 🚀
+This defines a `Spaceship` [CustomResourceDefinition](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) and a spaceship [Controller](https://kubernetes.io/docs/concepts/architecture/controller/).
+
+The goal is to ensure the safety of all pods by evacuating the premises upon notice of blastoff. These pods will be rescheduled to return to their nodes following the launch of the spacecraft
 
 ## Usage
 
