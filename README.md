@@ -32,6 +32,7 @@ go run main.go
 - <https://iximiuz.com/en/posts/kubernetes-operator-pattern>
 - <https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/>
 - <https://github.com/kubernetes/client-go/>
+- <https://sdk.operatorframework.io/>
 
 <!-- 
 https://iximiuz.com/en/categories/?category=Kubernetes
@@ -40,10 +41,13 @@ https://iximiuz.com/en/categories/?category=Kubernetes
 <!--
 TODO:
 - spaceship business logic in go?
-  - play around with the kubernetes client in go
   - https://pkg.go.dev/k8s.io/client-go@v0.25.0/kubernetes
+  - How do people typically use the k8s client to monitor the CRD? Or do people make simple http requests?
   - Use the k8s client to figure out how to monitor the CRD
   - evict all pods for "blast off"
+- Try using "kube-builder" (k8s sig) or "operator-sdk" (coreos)
+- https://github.com/kubernetes/sample-controller
+- Understanding Golang interfaces?
 -->
 
 <!--
