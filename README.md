@@ -41,10 +41,14 @@ https://iximiuz.com/en/categories/?category=Kubernetes
 <!--
 TODO:
 - spaceship business logic in go?
-  - https://pkg.go.dev/k8s.io/client-go@v0.25.0/kubernetes
   - How do people typically use the k8s client to monitor the CRD? Or do people make simple http requests?
-  - Use the k8s client to figure out how to monitor the CRD
-  - evict all pods for "blast off"
+    - https://omerxx.com/k8s-controllers/
+  - ReplicaSets=0 for 10 seconds
+    - Then bring back to previous
+    - Not concerned about pods controlled by DaemonSets or Node
+    - Able to list the scale of all the replicasets. Unable to decode into an actionable object.
+  - Drain Nodes
+    - https://pkg.go.dev/k8s.io/kubectl/pkg/drain
 - Try using "kube-builder" (k8s sig) or "operator-sdk" (coreos)
 - https://github.com/kubernetes/sample-controller
 - Understanding Golang interfaces?

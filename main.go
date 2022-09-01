@@ -30,33 +30,19 @@ func main() {
 		panic(err.Error())
 	}
 
-	// DISCOVERY CLIENT
-	// dclient, err := discovery.NewDiscoveryClientForConfig(config)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// apiresources, err := dclient.ServerPreferredNamespacedResources()
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// for _, value := range apiresources {
-	// 	fmt.Println(value)
-	// }
-
-	// DYNAMIC CLIENT
-	// dyclient := dynamic.ConfigFor(config)
-	// dynamic.ResourceInterface.Get(context.TODO())
-
-	// Create the Kubernetes Clientset
+	// Create the Kubernetes client to take action on pods and replicasets
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		panic(err.Error())
 	}
-	for {
-		// DRAIN ALL NODES
-		// https://pkg.go.dev/k8s.io/kubectl/pkg/drain
 
-		// DELETE ALL PODS
+	// Create the Dynamic client to take action on our spaceship CRD
+	// dyclient := dynamic.ConfigFor(config)
+	// dynamic.ResourceInterface.Get(context.TODO())
+
+	// Controller Loop
+	for {
+		fmt.Println()
 
 		// LIST ALL PODS
 		pods, err := clientset.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{})
@@ -65,7 +51,26 @@ func main() {
 		}
 		fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
 		for _, value := range pods.Items {
-			fmt.Println(value.Name)
+			fmt.Printf("%s, ", value.Name)
+		}
+		fmt.Println()
+
+		// LIST ALL REPLICASETS
+		rs, err := clientset.AppsV1().ReplicaSets("").List(context.TODO(), metav1.ListOptions{})
+		if err != nil {
+			panic(err.Error())
+		}
+		fmt.Printf("There are %d ReplicaSets in the cluster\n", len(rs.Items))
+		for _, value := range rs.Items {
+			fmt.Printf("Name=%s, ", value.Name)
+
+			scale, err := clientset.AppsV1().ReplicaSets(value.Namespace).GetScale(context.TODO(), value.Name, metav1.GetOptions{})
+			if err != nil {
+				panic(err.Error())
+			}
+			// var spec
+			// err := json.NewDecoder(scale.Spec).Decode(&spec)
+			// fmt.Printf("Scale=%s\n", spec)
 		}
 
 		// Examples for error handling:
